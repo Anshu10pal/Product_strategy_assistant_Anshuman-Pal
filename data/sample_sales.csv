@@ -1,0 +1,41 @@
+order_id,date,product_name,category,region,sales_rep,quantity,unit_price,revenue,customer_type,customer_feedback,rating,feature_request,churn_risk
+1001,2024-01-05,Analytics Pro,Software,North America,Alice,3,299,897,Enterprise,Great reporting features but export is slow,4,Faster export to Excel,Low
+1002,2024-01-08,Analytics Pro,Software,Europe,Bob,1,299,299,SMB,Missing mobile app support,2,Mobile app,High
+1003,2024-01-12,DataSync Basic,Integration,Asia Pacific,Carol,5,99,495,SMB,Works well for basic needs,3,API documentation,Medium
+1004,2024-01-15,Analytics Pro,Software,North America,Alice,2,299,598,Enterprise,Dashboard is excellent,5,Custom branding,Low
+1005,2024-01-18,DataSync Pro,Integration,Europe,Dave,1,199,199,Startup,Onboarding is confusing,2,Better onboarding wizard,High
+1006,2024-01-22,ReportBuilder,Reporting,North America,Eve,4,149,596,Enterprise,Love the templates,5,More chart types,Low
+1007,2024-01-25,Analytics Pro,Software,Latin America,Frank,1,299,299,SMB,Price is too high for our budget,2,Freemium tier,High
+1008,2024-02-01,DataSync Basic,Integration,North America,Alice,7,99,693,Enterprise,Reliable sync but needs better error messages,3,Error notifications,Medium
+1009,2024-02-05,ReportBuilder,Reporting,Asia Pacific,Carol,2,149,298,Startup,Easy to use,4,Scheduled reports,Low
+1010,2024-02-08,Analytics Pro,Software,Europe,Bob,3,299,897,Enterprise,Best analytics tool we have used,5,AI insights,Low
+1011,2024-02-12,DataSync Pro,Integration,North America,Eve,2,199,398,SMB,Setup took too long,2,One-click setup,High
+1012,2024-02-15,ReportBuilder,Reporting,Europe,Dave,1,149,149,Startup,Good but lacks collaboration features,3,Team collaboration,Medium
+1013,2024-02-20,Analytics Pro,Software,Asia Pacific,Frank,4,299,1196,Enterprise,Incredible insights dashboard,5,Predictive analytics,Low
+1014,2024-02-25,DataSync Basic,Integration,Latin America,Alice,3,99,297,SMB,Crashes sometimes on large files,1,Stability improvements,High
+1015,2024-03-01,Analytics Pro,Software,North America,Bob,2,299,598,Enterprise,Missing competitor benchmarking,3,Competitor tracking,Medium
+1016,2024-03-05,ReportBuilder,Reporting,North America,Carol,5,149,745,Enterprise,Team loves it,5,More export formats,Low
+1017,2024-03-10,DataSync Pro,Integration,Europe,Eve,1,199,199,Startup,Customer support was slow,2,Faster support response,High
+1018,2024-03-15,Analytics Pro,Software,Asia Pacific,Frank,6,299,1794,Enterprise,Our entire team depends on this,5,SSO integration,Low
+1019,2024-03-20,DataSync Basic,Integration,North America,Alice,4,99,396,SMB,Does the job but UI needs work,3,UI redesign,Medium
+1020,2024-03-25,ReportBuilder,Reporting,Europe,Bob,2,149,298,Startup,Great value for money,4,Drag and drop builder,Low
+1021,2024-04-01,Analytics Pro,Software,North America,Carol,3,299,897,Enterprise,Slow loading on large datasets,2,Performance optimization,Medium
+1022,2024-04-05,DataSync Pro,Integration,Latin America,Dave,2,199,398,SMB,Pricing confusing,2,Simpler pricing tiers,High
+1023,2024-04-10,ReportBuilder,Reporting,Asia Pacific,Eve,3,149,447,Enterprise,Very intuitive,4,AI report suggestions,Low
+1024,2024-04-15,Analytics Pro,Software,Europe,Frank,1,299,299,Startup,Hard to justify the cost,2,Student discount,High
+1025,2024-04-20,DataSync Basic,Integration,North America,Alice,8,99,792,Enterprise,Critical for our workflow,5,Webhook support,Low
+1026,2024-04-25,Analytics Pro,Software,North America,Bob,4,299,1196,Enterprise,Excellent product,5,White-label option,Low
+1027,2024-05-01,ReportBuilder,Reporting,Europe,Carol,1,149,149,Startup,Average,3,More integrations,Medium
+1028,2024-05-05,DataSync Pro,Integration,Asia Pacific,Dave,3,199,597,Enterprise,Good but needs GDPR tools,3,GDPR compliance features,Medium
+1029,2024-05-10,Analytics Pro,Software,North America,Eve,2,299,598,Enterprise,Would recommend to others,4,Anomaly detection,Low
+1030,2024-05-15,DataSync Basic,Integration,Latin America,Frank,5,99,495,SMB,Support response time poor,2,24/7 support,High
+1031,2024-05-20,Analytics Pro,Software,Europe,Alice,3,299,897,Enterprise,Best in class,5,Data lineage tracking,Low
+1032,2024-05-25,ReportBuilder,Reporting,North America,Bob,6,149,894,Enterprise,Team collaboration is missing,2,Real-time collaboration,High
+1033,2024-06-01,DataSync Pro,Integration,North America,Carol,2,199,398,SMB,Good onboarding now,4,Role-based access,Medium
+1034,2024-06-05,Analytics Pro,Software,Asia Pacific,Dave,5,299,1495,Enterprise,Outstanding,5,Custom metrics,Low
+1035,2024-06-10,ReportBuilder,Reporting,Europe,Eve,1,149,149,Startup,Needs more templates,3,Industry-specific templates,Medium
+1036,2024-06-15,DataSync Basic,Integration,North America,Frank,9,99,891,Enterprise,Extremely reliable,5,Bulk operations,Low
+1037,2024-06-20,Analytics Pro,Software,Latin America,Alice,1,299,299,Startup,Too complex for small teams,2,Simplified mode,High
+1038,2024-06-25,DataSync Pro,Integration,Europe,Bob,3,199,597,Enterprise,Solid product,4,Auto-retry on failure,Low
+1039,2024-07-01,Analytics Pro,Software,North America,Carol,4,299,1196,Enterprise,Powerful and reliable,5,ML forecasting,Low
+1040,2024-07-05,ReportBuilder,Reporting,Asia Pacific,Dave,2,149,298,SMB,Clean interface,4,Email scheduled delivery,Low
