@@ -192,7 +192,7 @@ with st.sidebar:
 
 # ── Tabs ─────────────────────────────────────────────────────────────────────
 
-tab1, tab2, tab3, tab4 = st.tabs(["📂 Upload & Analyze", "📊 Analysis Results", "💬 Chat", "ℹ️ About"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📂 Upload & Analyze", "📊 Analysis Results", "📈 Dashboard", "💬 Chat", "ℹ️ About"])
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -379,10 +379,165 @@ with tab2:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — Chat
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 3 — Dashboard
 # ══════════════════════════════════════════════════════════════════════════════
 
 with tab3:
+    st.subheader("📈 Data Analytics Dashboard")
+
+    import os as _os
+    import pandas as _pd
+
+    DATA_PATH = _os.path.join(_os.path.dirname(__file__), "data", "sample_sales.csv")
+
+    @st.cache_data
+    def load_data(path):
+        return _pd.read_csv(path)
+
+    if not _os.path.exists(DATA_PATH):
+        st.warning("No CSV found at data/sample_sales.csv. Upload a CSV in the Upload tab first.")
+    else:
+        try:
+            import plotly.express as px
+            import plotly.graph_objects as go
+        except ImportError:
+            st.error("Run: pip install plotly")
+            st.stop()
+
+        df = load_data(DATA_PATH)
+
+        # ── KPI row ──────────────────────────────────────────────────────────
+        k1, k2, k3, k4, k5 = st.columns(5)
+        k1.metric("Total Revenue",    f"${df['revenue'].sum():,.0f}")
+        k2.metric("Total Orders",     f"{len(df):,}")
+        k3.metric("Avg Order Value",  f"${df['revenue'].mean():,.0f}")
+        k4.metric("Avg Rating",       f"{df['rating'].mean():.2f} / 5")
+        k5.metric("High Churn Risk",  f"{(df['churn_risk']=='High').sum()} orders")
+
+        st.divider()
+
+        # ── Row 1: Revenue by Category | Revenue by Region ───────────────────
+        c1, c2 = st.columns(2)
+        with c1:
+            fig = px.bar(
+                df.groupby("category")["revenue"].sum().reset_index(),
+                x="category", y="revenue", color="category",
+                title="Revenue by Category",
+                labels={"revenue": "Revenue ($)", "category": "Category"},
+                color_discrete_sequence=px.colors.qualitative.Bold,
+            )
+            fig.update_layout(showlegend=False, height=350)
+            st.plotly_chart(fig, use_container_width=True)
+
+        with c2:
+            fig = px.pie(
+                df.groupby("region")["revenue"].sum().reset_index(),
+                names="region", values="revenue",
+                title="Revenue by Region",
+                color_discrete_sequence=px.colors.qualitative.Pastel,
+                hole=0.4,
+            )
+            fig.update_layout(height=350)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # ── Row 2: Monthly Revenue Trend | Rating Distribution ────────────────
+        c3, c4 = st.columns(2)
+        with c3:
+            df["month"] = _pd.to_datetime(df["date"]).dt.to_period("M").astype(str)
+            monthly = df.groupby("month")["revenue"].sum().reset_index()
+            fig = px.line(
+                monthly, x="month", y="revenue",
+                title="Monthly Revenue Trend",
+                labels={"revenue": "Revenue ($)", "month": "Month"},
+                markers=True, line_shape="spline",
+            )
+            fig.update_traces(line_color="#3b82f6", fill="tozeroy", fillcolor="rgba(59,130,246,0.1)")
+            fig.update_layout(height=350)
+            st.plotly_chart(fig, use_container_width=True)
+
+        with c4:
+            fig = px.histogram(
+                df, x="rating", nbins=5,
+                title="Customer Rating Distribution",
+                labels={"rating": "Rating", "count": "Count"},
+                color_discrete_sequence=["#6366f1"],
+            )
+            fig.update_layout(height=350, bargap=0.1)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # ── Row 3: Churn Risk | Top Products ─────────────────────────────────
+        c5, c6 = st.columns(2)
+        with c5:
+            churn_counts = df["churn_risk"].value_counts().reset_index()
+            churn_counts.columns = ["churn_risk", "count"]
+            color_map = {"High": "#ef4444", "Medium": "#f59e0b", "Low": "#22c55e"}
+            fig = px.bar(
+                churn_counts, x="churn_risk", y="count",
+                title="Churn Risk Distribution",
+                color="churn_risk", color_discrete_map=color_map,
+                labels={"count": "Orders", "churn_risk": "Risk Level"},
+            )
+            fig.update_layout(showlegend=False, height=350)
+            st.plotly_chart(fig, use_container_width=True)
+
+        with c6:
+            top_products = df.groupby("product_name")["revenue"].sum().sort_values(ascending=True).reset_index()
+            fig = px.bar(
+                top_products, x="revenue", y="product_name",
+                orientation="h", title="Revenue by Product",
+                labels={"revenue": "Revenue ($)", "product_name": "Product"},
+                color="revenue", color_continuous_scale="Blues",
+            )
+            fig.update_layout(height=350, coloraxis_showscale=False)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # ── Row 4: Revenue by Customer Type | Top Feature Requests ───────────
+        c7, c8 = st.columns(2)
+        with c7:
+            fig = px.pie(
+                df.groupby("customer_type")["revenue"].sum().reset_index(),
+                names="customer_type", values="revenue",
+                title="Revenue by Customer Type",
+                color_discrete_sequence=px.colors.qualitative.Set2,
+                hole=0.35,
+            )
+            fig.update_layout(height=350)
+            st.plotly_chart(fig, use_container_width=True)
+
+        with c8:
+            top_features = df["feature_request"].value_counts().head(8).reset_index()
+            top_features.columns = ["feature", "count"]
+            fig = px.bar(
+                top_features, x="count", y="feature",
+                orientation="h", title="Top Feature Requests",
+                labels={"count": "Requests", "feature": "Feature"},
+                color="count", color_continuous_scale="Teal",
+            )
+            fig.update_layout(height=350, coloraxis_showscale=False)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # ── Row 5: Avg Rating by Product ──────────────────────────────────────
+        avg_rating = df.groupby("product_name")["rating"].mean().reset_index()
+        fig = px.bar(
+            avg_rating, x="product_name", y="rating",
+            title="Average Customer Rating by Product",
+            color="rating", color_continuous_scale="RdYlGn",
+            range_y=[0, 5],
+            labels={"rating": "Avg Rating", "product_name": "Product"},
+        )
+        fig.add_hline(y=df["rating"].mean(), line_dash="dash",
+                      line_color="gray", annotation_text="Overall Avg")
+        fig.update_layout(height=380, coloraxis_showscale=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+
+# TAB 3 — Chat
+# ══════════════════════════════════════════════════════════════════════════════
+
+with tab4:
     st.subheader("💬 Chat with Your Product Data")
     st.caption("Ask questions about your uploaded documents and analysis results.")
 
@@ -438,7 +593,7 @@ with tab3:
 # TAB 4 — About
 # ══════════════════════════════════════════════════════════════════════════════
 
-with tab4:
+with tab5:
     st.subheader("ℹ️ About This Application")
     st.markdown("""
     ### AI-Powered Product Strategy Assistant
